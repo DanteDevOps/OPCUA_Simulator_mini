@@ -103,4 +103,6 @@ Feel free to fork this repository and submit pull requests. Any contributions, w
 
 For any issues or feature requests, please open an issue on [GitHub](https://github.com/DanteDevOps/OPCUA_Simulator_mini/issues).
 ```
-![Logo](assets/UI_picture.png)
+
+![UI Picture](https://raw.githubusercontent.com/DanteDevOps/OPCUA_Simulator_mini/master/assets/UI_picture.png)
+
