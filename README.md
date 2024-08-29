@@ -99,10 +99,16 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 
 Feel free to fork this repository and submit pull requests. Any contributions, whether for bug fixes or new features, are greatly appreciated!
 
+
+## UI Preview
+
+Here’s a preview of the user interface:
+
+![UI Picture](https://raw.githubusercontent.com/DanteDevOps/OPCUA_Simulator_mini/master/assets/UI_picture.png)
+
 ---
 
 For any issues or feature requests, please open an issue on [GitHub](https://github.com/DanteDevOps/OPCUA_Simulator_mini/issues).
 ```
 
-![UI Picture](https://raw.githubusercontent.com/DanteDevOps/OPCUA_Simulator_mini/master/assets/UI_picture.png)
 
