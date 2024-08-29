@@ -1,4 +1,3 @@
-```markdown
 # OPC UA Server Control Application
 
 This is a Python-based OPC UA server control application that provides a web interface for managing OPC UA tags, adding simulation tags, and monitoring active server configurations. The web interface is built using Flask and the server is managed with the Python `opcua` library.
@@ -11,6 +10,27 @@ This is a Python-based OPC UA server control application that provides a web int
 - **Remove Tags**: Remove individual tags or all tags from the server.
 - **Persistent Tag Configuration**: The server's state, including all tags, is saved in a JSON file and automatically loaded when the server starts.
 - **Web Interface**: Manage the server and tags through a modern, responsive web interface.
+
+## Usage
+
+1. **Start the Server**: Navigate to `http://localhost:5000` in your web browser and configure the server by providing an endpoint and URI.
+2. **Manage Tags**: Add, view, and remove tags using the web interface.
+3. **Add Simulation Tags**: Set up tags that automatically change over time within a defined range.
+4. **Stop the Server**: Stop the server using the "Stop Server" button in the web interface.
+
+## Project Structure
+
+```
+.
+├── server.py             # Main Python script that runs the OPC UA server and Flask application
+├── templates/            # HTML templates for the Flask application
+│   └── index.html
+├── static/               # Static files (e.g., CSS, JS, images)
+├── server_state.json     # JSON file where the server state is saved
+├── requirements.txt      # Python dependencies for the project
+└── README.md             # Project documentation
+```
+
 
 ## Installation
 
@@ -62,25 +82,7 @@ To create a standalone executable of the application, use PyInstaller:
 
 3. The executable will be generated in the `dist` folder.
 
-## Usage
 
-1. **Start the Server**: Navigate to `http://localhost:5000` in your web browser and configure the server by providing an endpoint and URI.
-2. **Manage Tags**: Add, view, and remove tags using the web interface.
-3. **Add Simulation Tags**: Set up tags that automatically change over time within a defined range.
-4. **Stop the Server**: Stop the server using the "Stop Server" button in the web interface.
-
-## Project Structure
-
-```
-.
-├── server.py             # Main Python script that runs the OPC UA server and Flask application
-├── templates/            # HTML templates for the Flask application
-│   └── index.html
-├── static/               # Static files (e.g., CSS, JS, images)
-├── server_state.json     # JSON file where the server state is saved
-├── requirements.txt      # Python dependencies for the project
-└── README.md             # Project documentation
-```
 
 ## License
 
