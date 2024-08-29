@@ -12,20 +12,21 @@ This is a Python-based OPC UA server control application that provides a web int
 - **Web Interface**: Manage the server and tags through a modern, responsive web interface.
 
 ## Usage
-
-1. **Start the Server**: Navigate to `http://localhost:5000` in your web browser and configure the server by providing an endpoint and URI.
-2. **Manage Tags**: Add, view, and remove tags using the web interface.
-3. **Add Simulation Tags**: Set up tags that automatically change over time within a defined range.
-4. **Stop the Server**: Stop the server using the "Stop Server" button in the web interface.
+1. **Run the server**: Download and run the executable file from the "/dist/opcua_server.exe "
+2. **Start the Server**: Navigate to `http://localhost:5000` in your web browser and configure the server by providing an endpoint and URI.
+3. **Manage Tags**: Add, view, and remove tags using the web interface.
+4. **Add Simulation Tags**: Set up tags that automatically change over time within a defined range.
+5. **Stop the Server**: Stop the server using the "Stop Server" button in the web interface.
 
 ## Project Structure
 
 ```
 .
-├── server.py             # Main Python script that runs the OPC UA server and Flask application
+├── opcua_server.py             # Main Python script that runs the OPC UA server and Flask application
+├── dist/            # HTML templates for the Flask application
+│   └── opcua_server.exe
 ├── templates/            # HTML templates for the Flask application
 │   └── index.html
-├── static/               # Static files (e.g., CSS, JS, images)
 ├── server_state.json     # JSON file where the server state is saved
 ├── requirements.txt      # Python dependencies for the project
 └── README.md             # Project documentation
@@ -59,7 +60,7 @@ pip install -r requirements.txt
 To start the application, run the following command:
 
 ```bash
-python server.py
+python opcua_server.py
 ```
 
 The server will start in debug mode and be accessible at `http://localhost:5000`.
@@ -102,3 +103,6 @@ Feel free to fork this repository and submit pull requests. Any contributions, w
 
 For any issues or feature requests, please open an issue on [GitHub](https://github.com/DanteDevOps/OPCUA_Simulator_mini/issues).
 ```
+
+![image](https://github.com/user-attachments/assets/045a6ceb-0e43-40dc-9521-ee109805585f)
+
