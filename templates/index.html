@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPC UA Server Control</title>
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Raleway:wght@300&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4; /* Light background */
+            font-family: 'Raleway', sans-serif;
+        }
+
+        h2 {
+            font-family: 'Raleway', sans-serif; /* Retro font for the header */
+            font-size: 2.5em;
+            color: #f4f4f4;
+            font-weight: normal;
+        }
+
+        h3 {
+            color: #f4f4f4 !important; /* Orange-red for section headers */
+            font-family: 'Lato', sans-serif; /* Clean font for subheaders */
+            font-weight: 700;
+        }
+
+        .ui.button {
+            background-color: #d84315; /* Orange-red button color */
+            color: #ffffff;
+        }
+
+        .ui.red.button {
+            background-color: #8d6e63; /* Brown button color */
+        }
+
+        .header, .footer {
+            background-color: #37474f; /* Dark gray-blue background for header and footer */
+            color: #ffffff;
+            padding: 20px 10px;
+            text-align: center;
+            box-shadow: 0 4px 2px -2px gray;
+        }
+
+        .header {
+            margin-bottom: 2em;
+        }
+
+        .footer {
+            margin-top: 2em;
+        }
+
+        #active-tags p {
+            margin: 0.5em 0;
+            font-weight: 400;
+        }
+
+        .ui.grid > .column {
+            padding: 1em;
+        }
+
+        .ui.container {
+            max-width: 960px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ui.segment {
+            background-color: #fdf0e5;
+            border: 1px solid #8d6e63; /* Border color matching the design */
+            border-radius: 8px;
+            padding: 1.5em;
+        }
+
+        button.ui.button {
+            margin-top: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h2>OPC UA Server Control</h2>
+    </div>
+
+    <div class="ui container">
+        <div id="server-section" class="ui segment">
+            <h3 class="ui header">Server Configuration</h3>
+            <form class="ui form" id="server-form">
+                <div class="field">
+                    <label>Endpoint</label>
+                    <input type="text" name="endpoint" placeholder="opc.tcp://localhost:4840" required>
+                </div>
+                <div class="field">
+                    <label>URI</label>
+                    <input type="text" name="uri" placeholder="urn:my-namespace" required>
+                </div>
+                <button class="ui button" type="submit">Start Server</button>
+                <button class="ui red button" type="button" id="stop-server-btn">Stop Server</button>
+            </form>
+        </div>
+
+        <div id="active-server-section" class="ui segment">
+            <h3 class="ui header">Active Server</h3>
+            <p id="active-server-info">No active server.</p>
+        </div>
+
+        <div class="ui grid">
+            <div class="eight wide column">
+                <div id="tag-section" class="ui segment">
+                    <h3 class="ui header">Add Tag</h3>
+                    <form class="ui form" id="tag-form">
+                        <div class="field">
+                            <label>Tag Name</label>
+                            <input type="text" name="name" placeholder="Tag Name" required>
+                        </div>
+                        <div class="field">
+                            <label>Data Type</label>
+                            <select name="dtype" class="ui dropdown" required>
+                                <option value="int">Int</option>
+                                <option value="float">Float</option>
+                                <option value="string">String</option>
+                                <option value="bool">Boolean</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Initial Value</label>
+                            <input type="text" name="initial_value" placeholder="Initial Value" required>
+                        </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" name="writable" checked>
+                                <label>Writable</label>
+                            </div>
+                        </div>
+                        <button class="ui button" type="submit">Add Tag</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="eight wide column">
+                <div id="simulation-section" class="ui segment">
+                    <h3 class="ui header">Add Simulation Tag</h3>
+                    <form class="ui form" id="simulation-form">
+                        <div class="field">
+                            <label>Tag Name</label>
+                            <input type="text" name="name" placeholder="Tag Name" required>
+                        </div>
+                        <div class="field">
+                            <label>Data Type</label>
+                            <select name="dtype" class="ui dropdown" required>
+                                <option value="int">Int</option>
+                                <option value="float">Float</option>
+                                <option value="bool">Boolean</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Min Value</label>
+                            <input type="text" name="min_val" placeholder="Minimum Value" required>
+                        </div>
+                        <div class="field">
+                            <label>Max Value</label>
+                            <input type="text" name="max_val" placeholder="Maximum Value" required>
+                        </div>
+                        <div class="field">
+                            <label>Gain</label>
+                            <input type="text" name="gain" placeholder="Gain" required>
+                        </div>
+                        <div class="field">
+                            <label>Interval (seconds)</label>
+                            <input type="text" name="interval" placeholder="Interval" required>
+                        </div>
+                        <button class="ui button" type="submit">Add Simulation Tag</button>
+                    </form>
+                    <button class="ui red button" id="remove-all-tags-btn" style="margin-top: 1em;">Remove All Tags</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="active-tags-section" class="ui segment">
+            <h3 class="ui header">Active Tags</h3>
+            <div id="active-tags"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 OPC UA Server Control. All rights reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#server-form').submit(function (e) {
+                e.preventDefault();
+                $.post('/start_server', $(this).serialize(), function (response) {
+                    alert(response.status);
+                    updateServerInfo();
+                    updateTags();
+                });
+            });
+
+            $('#stop-server-btn').click(function () {
+                $.post('/stop_server', function (response) {
+                    alert(response.status);
+                    $('#active-server-info').text('No active server.');
+                });
+            });
+
+            $('#tag-form').submit(function (e) {
+                e.preventDefault();
+                $.post('/add_tag', $(this).serialize(), function (response) {
+                    alert(response.status);
+                    updateTags();
+                });
+            });
+
+            $('#simulation-form').submit(function (e) {
+                e.preventDefault();
+                $.post('/add_simulation_tag', $(this).serialize(), function (response) {
+                    alert(response.status);
+                    updateTags();
+                });
+            });
+
+            $('#remove-all-tags-btn').click(function () {
+                $.post('/remove_all_tags', function (response) {
+                    alert(response.status);
+                    updateTags();
+                });
+            });
+
+            function updateServerInfo() {
+                $.get('/get_server_info', function (response) {
+                    if (response && response.endpoint) {
+                        $('#active-server-info').text(`Active Server: ${response.endpoint}`);
+                    } else {
+                        $('#active-server-info').text('No active server.');
+                    }
+                }).fail(function() {
+                    $('#active-server-info').text('No active server.');
+                });
+            }
+
+            function updateTags() {
+                $.get('/get_tags', function (response) {
+                    $('#active-tags').empty();
+                    if (response && response.tags) {
+                        $.each(response.tags, function (name, details) {
+                            $('#active-tags').append('<p>' + name + ' (' + details.type + '): ' + details.value + '</p>');
+                        });
+                    } else {
+                        $('#active-tags').append('<p>No tags available.</p>');
+                    }
+                }).fail(function() {
+                    $('#active-tags').append('<p>Error retrieving tags.</p>');
+                });
+            }
+
+            updateServerInfo();
+            updateTags();
+        });
+    </script>
+</body>
+
+</html>
